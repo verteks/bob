@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.UUID;
 @Entity
-public class Product extends Model{
+public class  Product extends Model{
     @Id
     private UUID id;
     @Required
@@ -31,9 +31,6 @@ public class Product extends Model{
     }
     public static void delete(UUID id){
         find.ref(id).delete();
-    }
-    public void refresh(){
-        this.refresh();
     }
 
     public double getAmount() {

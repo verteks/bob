@@ -7,31 +7,32 @@ import play.mvc.Result;
 
 import java.util.UUID;
 
-import views.html.*;
-
 public class Application extends Controller {
-    static Form<Product> ProductForm = Form.form(Product.class);
+    static Form<Product> productForm = Form.form(Product.class);
     public static Result index() {
         return redirect(routes.Application.products());
     }
 
     public static Result products() {
         return ok(
-                views.html.index.render(Product.all(), ProductForm)
+                views.html.index.render(Product.all(), productForm)
         );
     }
 
     public static Result newProduct() {
-//        Form<Notebook> filledForm = notebookForm.bindFromRequest();
-//        if(filledForm.hasErrors()) {
-//            return badRequest(
-//                    views.html.index.render(Notebook.all(), filledForm)
-//            );
-//        } else {
-//            Notebook.create(filledForm.get());
-//            return redirect(routes.Application.notebook());
-//        }
-        return TODO;
+        Form<Product> filledForm = productForm.bindFromRequest();
+        if(filledForm.hasErrors()) {
+            return badRequest(
+                    views.html.index.render(Product.all(), filledForm)
+            );
+        } else {
+            Product product = new Product(filledForm.get().getName());
+            product.setDescription(filledForm.get().getDescription());
+            product.setCost(filledForm.get().getCost());
+            product.setAmount(filledForm.get().getAmount());
+            product.save();
+            return redirect(routes.Application.products());
+        }
     }
 
     public static Result deleteProduct(UUID id) {

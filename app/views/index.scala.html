@@ -1,4 +1,4 @@
-@(products: List[Product], ProductForm: Form[Product])
+@(products: List[Product], productForm: Form[Product])
 
 @import helper._
 
@@ -17,9 +17,10 @@
 
       @form(routes.Application.deleteProduct(product.getId())) {
       <input type="submit" value="Delete">
-      }
 
        <hr/>
+
+      }
    </li>
    }
 </ul>
@@ -28,10 +29,12 @@
 <h2>Add a new task</h2>
     @form(routes.Application.newProduct()) {
 
-    @inputText(ProductForm("name"))
-    @inputText(ProductForm("cost"))
-    @inputText(ProductForm("amount"))
-    @inputText(ProductForm("description"))
+    @inputText(productForm("name"))
+    @inputText(productForm("cost"))
+    @inputText(productForm("amount"))
+    @inputText(productForm("description"))
+    @textarea(productForm("description"), args = 'rows -> 2, 'cols -> 25)
+
 
     <input type="submit" value="Create">
 }
