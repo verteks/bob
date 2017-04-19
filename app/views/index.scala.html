@@ -1,0 +1,39 @@
+@(products: List[Product], ProductForm: Form[Product])
+
+@import helper._
+
+@main("Todo list") {
+<div class="products">
+<h1>@products.size() products(s)</h1>
+
+<ul>
+   @for(product <- products) {
+   <li>
+      Name: @product.getName() <br/>
+      Cost: @product.getCost() <br/>
+      Amount(): @product.getAmount() <br/>
+      Description: @product.getDescription()
+
+
+      @form(routes.Application.deleteProduct(product.getId())) {
+      <input type="submit" value="Delete">
+      }
+
+       <hr/>
+   </li>
+   }
+</ul>
+</div>
+<div class="newProduct">
+<h2>Add a new task</h2>
+    @form(routes.Application.newProduct()) {
+
+    @inputText(ProductForm("name"))
+    @inputText(ProductForm("cost"))
+    @inputText(ProductForm("amount"))
+    @inputText(ProductForm("description"))
+
+    <input type="submit" value="Create">
+}
+</div>
+}
