@@ -22,6 +22,9 @@ public class  Product extends Model{
     public static Finder<UUID, Product> find = new Finder<UUID, Product>(
             UUID.class, Product.class
     );
+    public static Product find(UUID id) {
+        return find.ref(id);
+    }
     public Product(String name){
         this.name = name;
         this.save();
