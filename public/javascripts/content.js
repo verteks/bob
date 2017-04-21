@@ -99,7 +99,7 @@ function ProductsViewModel() {
                 {
                     var isNew = false;
                 }
-                //todo флаг, является ли данная запись в форме - новой записью. Если редактируемая - выдает false
+
 
                 if (isNew) { /*создание нового */
                     product.id = data.id;
@@ -108,7 +108,7 @@ function ProductsViewModel() {
                     //todo редактирование - ищем и обновляем
                     console.log(self.products());
                     for (i = 0; i < self.products().length; i++) {
-                        var found = false; //todo исправить на корректное условие
+                        var found = false;
                         if (product.id == self.products()[i].id) {
                             self.products()[i].name(data.name);
                             self.products()[i].description(data.description);
@@ -127,7 +127,6 @@ function ProductsViewModel() {
                 console.log('error! Не могу отправить json запрос');
                 console.log(data);
             }
-            //todo обработка ошибок от сервера
         });
     };
 
