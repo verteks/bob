@@ -10,17 +10,17 @@
    @for(product <- products) {
    <li>
       Name: @product.getName() <br/>
-      Cost: @product.getCost() <br/>
-      Amount: @product.getAmount() <br/>
-      Description: @product.getDescription()
+           Cost: @product.getCost() <br/>
+           Amount: @product.getAmount() <br/>
+           Description: @product.getDescription()
 
 
-      @form(routes.Application.deleteProduct(product.getId())) {
-      <input type="submit" value="Delete">
+           @form(routes.Application.deleteProduct(product.getId())) {
+               <input type="submit" value="Delete">
 
-       <hr/>
+               <hr/>
 
-      }
+           }
    </li>
    }
 </ul>
@@ -32,7 +32,6 @@
     @inputText(productForm("name"))
     @inputText(productForm("cost"))
     @inputText(productForm("amount"))
-    @inputText(productForm("description"))
     @textarea(productForm("description"), args = 'rows -> 2, 'cols -> 25)
 
 

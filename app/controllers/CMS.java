@@ -1,17 +1,20 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import controllers.*;
 import models.Product;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
+import views.*;
+
 import java.util.List;
 import java.util.UUID;
+
 import static play.libs.Json.toJson;
+import static play.mvc.Controller.request;
+import static play.mvc.Controller.response;
 import static play.mvc.Results.*;
 
 /**
@@ -26,7 +29,7 @@ public class CMS {
         }
         public static Result products() {
             return ok(
-                    views.html.index.render(Product.all(), productForm)
+                    views.html.content.render(productForm)
             );
         }
         private static Result errorJsonResult(String errorMessage) {
@@ -50,13 +53,16 @@ public class CMS {
             } else {
                 UUID id = null;
                 try {
-                    id = UUID.fromString(json.findPath("id").asText());
-                } catch (NumberFormatException nfe) {
-                    return errorJsonResult("id wrong type");
-                } finally {
-                    if (id == null) {
-                        return errorJsonResult("id must be specified");
+                    if (json.findPath("id").asText() != "null") {
+                        id = UUID.fromString(json.findPath("id").asText());
                     }
+                } catch (IllegalArgumentException nfe) {
+                    return errorJsonResult("wrong type id");
+                } finally {
+//                    if (id == null) {
+//                        play.Logger.info(json.findPath("id").asText().toString());
+//                        return errorJsonResult("id must be specified");
+//                    }
                 }
                 assert(id!=null);
 
@@ -79,21 +85,26 @@ public class CMS {
             } else {
                 UUID id = null; //todo
                 try {
-                    id = UUID.fromString(json.findPath("id").asText());
-                } catch (NumberFormatException nfe) {
-                    return errorJsonResult("id must be an integer");
-                } finally {
-                    if (id == null) {
-                        return errorJsonResult("id must be specified");
+                    if (json.findPath("id").asText() != "null") {
+                        id = UUID.fromString(json.findPath("id").asText());
                     }
+                } catch (IllegalArgumentException nfe) {
+                    return errorJsonResult("wrong type id");
+                } finally {
+//                    if (id == null) {
+//                        play.Logger.info(json.findPath("id").asText().toString());
+//                        return errorJsonResult("id must be specified");
+//                    }
                 }
                 Product product = null;
                 if (id != null) {
                     product = Product.find(id);
                 }
                 if (product == null) {
-                    if (json.findPath("name").asText() !=""){
+                    if (json.findPath("name").asText().length()>2){
                         product = new Product(json.findPath("name").asText());
+                    }else{
+                        return errorJsonResult("name must be longer then 2 symbols");
                     }
                 }
                 product.setAmount(json.findPath("amount").asDouble());
