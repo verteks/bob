@@ -1,5 +1,6 @@
 package controllers;
 
+import models.GroupProduct;
 import models.Product;
 import play.data.Form;
 import play.mvc.Controller;
@@ -16,7 +17,7 @@ public class Application extends Controller {
 
     public static Result products() {
         return ok(
-                views.html.index.render(Product.all(), productForm)
+                views.html.index.render(Product.all(), productForm, GroupProduct.all())
         );
     }
 

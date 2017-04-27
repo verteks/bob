@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Product;
 import org.junit.*;
 
 import play.mvc.*;
@@ -39,6 +40,5 @@ public class ApplicationTest {
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
-
 
 }

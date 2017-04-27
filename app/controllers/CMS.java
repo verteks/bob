@@ -85,7 +85,7 @@ public class CMS {
             if (json == null) {
                 return errorJsonResult("JSON expected");
             } else {
-                UUID id = null; //todo
+                UUID id = null;
                 try {
                     if (json.findPath("id").asText() != "null") {
                         id = UUID.fromString(json.findPath("id").asText());

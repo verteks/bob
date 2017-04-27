@@ -6,6 +6,7 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Entity
@@ -18,6 +19,7 @@ public class  Product extends Model{
     private double cost;
     private double amount;
     private Image image;
+    private ArrayList<GroupProduct> list;
 
     public static Finder<UUID, Product> find = new Finder<UUID, Product>(
             UUID.class, Product.class
@@ -25,13 +27,30 @@ public class  Product extends Model{
     public static Product find(UUID id) {
         return find.ref(id);
     }
+
     public Product(String name){
         this.name = name;
         this.save();
+        list = new ArrayList<GroupProduct>();
+    };
+    public void setGroup(GroupProduct groupProduct){
+        list.add(groupProduct);
+        groupProduct.addProduct(this);
+        groupProduct.save();
     }
+    public ArrayList<GroupProduct> getGroups(){
+        return list;
+    };
+    public void deleteGroup(GroupProduct groupProduct){
+        list.remove(groupProduct);
+        groupProduct.deleteProduct(this);
+        groupProduct.save();
+    };
+
     public static List<Product> all() {
         return find.all();
     }
+
     public static void delete(UUID id){
         find.ref(id).delete();
     }

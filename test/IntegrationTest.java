@@ -1,8 +1,8 @@
+import models.GroupProduct;
+import models.Product;
 import org.junit.Test;
 import play.libs.F.Callback;
 import play.test.TestBrowser;
-
-import java.util.UUID;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
@@ -24,8 +24,15 @@ public class IntegrationTest {
     }
     @Test
     public void test1() {
-        UUID id = UUID.fromString("");
-        id=null;
+        Product product1 = new Product("product1");
+        Product product2 = new Product("product2");
+        GroupProduct group1 = new GroupProduct("group1");
+        product1.setGroup(group1);
+        product2.setGroup(group1);
+
+        GroupProduct group11 = new GroupProduct("group1");
+        GroupProduct group2 = new GroupProduct("group1");
+
     }
 
 }
