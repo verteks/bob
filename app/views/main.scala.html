@@ -13,6 +13,24 @@
         <script type="text/javascript" src="@routes.CMS.jsRoutes"></script>
     </head>
     <body>
+        <div>
+        @if(Auth.currentUserEmail() == null) {
+            @helper.form(routes.Auth.login()) {
+                <button type="submit" >Авторизация</button>
+            }
+        }
+        @if(Auth.currentUserEmail() == null) {
+            @helper.form(routes.Auth.signup()) {
+                <button type="submit" >Зарегистрироваться</button>
+            }
+        }
+        @if(Auth.currentUserEmail() != null) {
+            @helper.form(routes.Auth.logout()) {
+                <button type="submit" >Выход</button>
+             }
+       }
+
+        </div>
         @content
     </body>
 </html>

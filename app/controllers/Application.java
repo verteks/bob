@@ -4,6 +4,7 @@ import models.Product;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.err;
 
 import java.util.UUID;
 
@@ -39,6 +40,10 @@ public class Application extends Controller {
         Product.delete(id);
         return redirect(routes.Application.products());
 
+    }
+    // Несуществующий путь
+    public static Result error(String path) {
+        return ok(err.render(path));
     }
 }
 

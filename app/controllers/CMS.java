@@ -7,7 +7,8 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
-import views.*;
+import play.mvc.Security;
+import util.Secured;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +21,7 @@ import static play.mvc.Results.*;
 /**
  * Created by vshir on 20.04.2017.
  */
+@Security.Authenticated(Secured.class)
 public class CMS {
 
         static Form<Product> productForm = Form.form(Product.class);
