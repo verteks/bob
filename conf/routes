@@ -10,6 +10,12 @@ GET     /CMS                  controllers.Application.products()
 POST    /CMS                  controllers.Application.newProduct()
 POST    /CMS/:id/delete       controllers.Application.deleteProduct(id: java.util.UUID)
 
+#Admin
+GET     /admin                controllers.Admin.dashboars()
+GET     /admin/newProduct     controllers.Admin.newProduct()
+POST    /admin/saveProduct    controllers.Admin.saveProduct()
+GET     /admin/products       controllers.Admin.products()
+
 # Notes
 GET     /bob                      controllers.CMS.products()
 #CMS

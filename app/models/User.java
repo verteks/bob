@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -17,7 +18,7 @@ public class User extends Model {
     @Id
     @Email
     private String email;
-    private boolean isAdmin = false;
+    private boolean isAdmin;
 
     private String passwordHash;
     private String salt;
@@ -25,12 +26,16 @@ public class User extends Model {
     public User(String email, String password) {
         this.email = email;
         setPassword(password);
+        this.isAdmin =false;
     }
 
     public static Finder<String, User> find = new Finder<String, User>(String.class, User.class);
     private String getHash(String s) {
         s = SHA256(s);
         return s;
+    }
+    public static List<User> all() {
+        return find.all();
     }
     public void setPassword(String password) {
         salt=genSalt();
@@ -85,5 +90,13 @@ public class User extends Model {
         byte[] salt = new byte[32];
         r.nextBytes(salt);
         return Base64.encodeBase64(salt).toString();
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }

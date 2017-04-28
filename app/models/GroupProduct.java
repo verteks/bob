@@ -12,10 +12,12 @@ public class GroupProduct extends Model {
     @Id
     private String name;
     private ArrayList<Product> list;
+    private ArrayList<GroupProduct> groupList;
 
     public GroupProduct(String name){
         this.name = name;
         list = new ArrayList<Product>();
+        groupList = new ArrayList<GroupProduct>();
     }
     public static Model.Finder<String, GroupProduct> find = new Model.Finder<String,GroupProduct>(
             String.class, GroupProduct.class
@@ -37,10 +39,18 @@ public class GroupProduct extends Model {
     }
     public ArrayList<Product> allProduct(){
         return list;
-
     }
     public static List<GroupProduct> all() {
         return find.all();
     }
 
+    public ArrayList<GroupProduct> getGroupList() {
+        return groupList;
+    }
+    public void addGroup(GroupProduct group){
+        groupList.add(group);
+    }
+    public void deleteGroup (GroupProduct group){
+        groupList.remove(group);
+    }
 }
